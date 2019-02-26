@@ -10,6 +10,10 @@ import com.zafiru.commands.MoveCommand;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.runes.DamageRune;
 import com.zafiru.equipments.weapons.behaviours.DoubleStrikeBehaviour;
+import com.zafiru.services.DatabaseService;
+import com.zafiru.services.GameService;
+import com.zafiru.services.IService;
+import com.zafiru.services.ServiceAdapter;
 import com.zafiru.settings.Preferences;
 import com.zafiru.spells.Fireball;
 import com.zafiru.spells.Frostbolt;
@@ -104,5 +108,17 @@ public class Main {
         panel.onButtonClick(0);
         panel.onButtonClick(1);
         panel.onButtonClick(2);
+
+        IService gameService = new ServiceAdapter(new GameService());
+        gameService.sendRequest();
+        String response = gameService.getResponse();
+        System.out.println("Game Service Response: " + response);
+        System.out.println();
+
+
+        IService databaseService = new ServiceAdapter(new DatabaseService());
+        databaseService.sendRequest();
+        response = databaseService.getResponse();
+        System.out.println("Database Service Response: " + response);
     }
 }
