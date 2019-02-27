@@ -7,3 +7,4 @@ In these repositories, some design patterns are implemented to a mini game syste
 Adapter pattern, converts the interface of a class into another interface the clients expect. Adapter lets classes work together that couldn’t otherwise because of incompatible interfaces.
 
 ### Description
+We come to a point that we need to use some web services and APIs. 
