@@ -1,12 +1,15 @@
 package com.zafiru;
 
-import com.zafiru.characters.Dummy;
-import com.zafiru.characters.Goblin;
-import com.zafiru.characters.ICharacter;
-import com.zafiru.characters.Knight;
+import com.zafiru.characters.*;
 import com.zafiru.commands.AttackCommand;
 import com.zafiru.commands.CastSpellCommand;
 import com.zafiru.commands.MoveCommand;
+import com.zafiru.components.Camera;
+import com.zafiru.components.Scene;
+import com.zafiru.core.AudioEngine;
+import com.zafiru.core.CombatFacade;
+import com.zafiru.core.ParticleSystem;
+import com.zafiru.core.PhysicsEngine;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.runes.DamageRune;
 import com.zafiru.equipments.weapons.behaviours.DoubleStrikeBehaviour;
@@ -65,7 +68,7 @@ public class Main {
 
         System.out.println();
         System.out.println("After defating " + evilGoblin.getType());
-        System.out.println(Preferences.getInstance().get("name") + "stops at the blacksmith to upgrade his sword");
+        System.out.println(Preferences.getInstance().get("name") + " stops at the blacksmith to upgrade his sword");
         System.out.println("Then buys three damage rune and goes to training ground to test them");
         System.out.println();
 
@@ -86,6 +89,9 @@ public class Main {
 
         ourKnight.equip(EquipmentSlot.HEAD, "Helmet");
         ourKnight.equip(EquipmentSlot.CHEST, "Cuirass");
+        ourKnight.equip(EquipmentSlot.LEGS, "Pauldron");
+        ourKnight.equip(EquipmentSlot.HAND, "Gauntlet");
+        ourKnight.equip(EquipmentSlot.FOOT, "Greave");
 
         System.out.println();
 
@@ -115,10 +121,39 @@ public class Main {
         System.out.println("Game Service Response: " + response);
         System.out.println();
 
-
         IService databaseService = new ServiceAdapter(new DatabaseService());
         databaseService.sendRequest();
         response = databaseService.getResponse();
         System.out.println("Database Service Response: " + response);
+
+        System.out.println(Preferences.getInstance().get("name") + " hit the road again and suddenly a Troll appeared");
+
+        CombatFacade combatFacade = new CombatFacade(
+                new PhysicsEngine(),
+                new AudioEngine(),
+                new ParticleSystem(),
+                new Scene(),
+                new Camera(),
+                new ServiceAdapter(new DatabaseService()));
+
+        combatFacade.start();
+
+
+        ICharacter troll = new Troll();
+        troll.equip(EquipmentSlot.TWO_HAND, "Club");
+        troll.setTarget(ourKnight);
+        troll.hit();
+
+        ourKnight.setTarget(troll);
+        panel.onButtonClick(0);
+
+        troll.hit();
+        panel.onButtonClick(0);
+
+        troll.hit();
+        panel.onButtonClick(0);
+
+
+        combatFacade.end();
     }
 }

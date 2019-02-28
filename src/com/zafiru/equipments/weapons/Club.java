@@ -7,7 +7,7 @@ public class Club extends IWeapon {
 
     public Club(){
         setName("Club");
-        setSlot(EquipmentSlot.RIGHT_HAND);
+        setSlot(EquipmentSlot.TWO_HAND);
         setDamage(8);
         setBehaviour(new NormalHitBehaviour());
     }
