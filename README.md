@@ -54,7 +54,7 @@ public class DatabaseService implements IService {
 
 We are ready to make some requests. However, onces the actual requests were made, we see that game service responses with JSON format and database service responses with XML format. We used interface to decrease dependencies, but now we need to know which service it is to parse for corresponding format and hidden dependency occured. So what we can do? Some convertion can be add in subclass' getResponse() method and make it return converted response. Then again if we decide to change the format we are using or the APIs' says "Lets use YAML instead of JSON from now on", we need to make changes in every subclass. Good news, there is a good pattern for these situations, Adapter Pattern. 
 
-In adapter pattern, our interfaces won't be changed, they will work like before. We just make someone else to adapt them to our needs and act like a power adapters in real life. So lets make our adapter. First we need some parser;
+In adapter pattern, our interfaces won't be changed, they will work like before. We just make someone else to adapt them to our needs and act like a power adapters in real life. So lets make our adapter. First we need some parsers;
 
 ```java
 public interface IParser {
