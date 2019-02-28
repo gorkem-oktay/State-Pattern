@@ -6,65 +6,65 @@ import com.zafiru.services.IService;
 
 public class CombatFacade {
 
-    private PhysicsEngine mPhysicsEngine;
-    private AudioEngine mAudioEngine;
-    private ParticleSystem mParticleSystem;
-    private Scene mScene;
-    private Camera mCamera;
-    private IService mService;
+    private PhysicsEngine physicsEngine;
+    private AudioEngine audioEngine;
+    private ParticleSystem particleSystem;
+    private Scene scene;
+    private Camera camera;
+    private IService service;
 
     public CombatFacade(PhysicsEngine physicsEngine, AudioEngine audioEngine, ParticleSystem particleSystem, Scene scene, Camera camera, IService service){
-        this.mPhysicsEngine = physicsEngine;
-        this.mAudioEngine = audioEngine;
-        this.mParticleSystem = particleSystem;
-        this.mScene = scene;
-        this.mCamera = camera;
-        this.mService = service;
+        this.physicsEngine = physicsEngine;
+        this.audioEngine = audioEngine;
+        this.particleSystem = particleSystem;
+        this.scene = scene;
+        this.camera = camera;
+        this.service = service;
     }
 
     public void start(){
         System.out.println("Preparing combat...");
-        mScene.open("Combat");
-        mAudioEngine.play("Background Music");
-        mScene.placeCharacters();
-        mCamera.move();
-        mPhysicsEngine.enable();
+        scene.open("Combat");
+        audioEngine.play("Background Music");
+        scene.placeCharacters();
+        camera.move();
+        physicsEngine.enable();
         System.out.println();
     }
 
     public void end(){
         System.out.println();
-        mParticleSystem.start("Confetti");
-        mPhysicsEngine.disable();
-        mCamera.move();
-        mAudioEngine.stop("Background Music");
+        particleSystem.start("Confetti");
+        physicsEngine.disable();
+        camera.move();
+        audioEngine.stop("Background Music");
         // sends information about the combat
-        mService.sendRequest();
-        mScene.open("Map");
+        service.sendRequest();
+        scene.open("Map");
         System.out.println("Combat ended...");
     }
 
     public PhysicsEngine getPhysicsEngine() {
-        return mPhysicsEngine;
+        return physicsEngine;
     }
 
     public AudioEngine getAudioEngine() {
-        return mAudioEngine;
+        return audioEngine;
     }
 
     public ParticleSystem getParticleSystem() {
-        return mParticleSystem;
+        return particleSystem;
     }
 
     public Scene getScene() {
-        return mScene;
+        return scene;
     }
 
     public Camera getCamera() {
-        return mCamera;
+        return camera;
     }
 
     public IService getService() {
-        return mService;
+        return service;
     }
 }
