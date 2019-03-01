@@ -1,5 +1,6 @@
 package com.zafiru.characters;
 
+import com.zafiru.components.Sprite;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.IEquipment;
 import com.zafiru.equipments.IEquipmentFactory;
@@ -11,7 +12,7 @@ import com.zafiru.spells.ISpell;
 
 import java.util.HashMap;
 
-public abstract class ICharacter {
+public abstract class ICharacter extends Sprite {
 
     private String mName;
     private String mType;

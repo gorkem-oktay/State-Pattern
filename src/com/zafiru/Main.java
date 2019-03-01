@@ -7,8 +7,7 @@ import com.zafiru.commands.MoveCommand;
 import com.zafiru.components.Camera;
 import com.zafiru.components.Scene;
 import com.zafiru.core.AudioEngine;
-import com.zafiru.core.CombatFacade;
-import com.zafiru.core.ParticleSystem;
+import com.zafiru.core.CombatSceneFacade;
 import com.zafiru.core.PhysicsEngine;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.runes.DamageRune;
@@ -126,34 +125,49 @@ public class Main {
         response = databaseService.getResponse();
         System.out.println("Database Service Response: " + response);
 
+        System.out.println();
         System.out.println(Preferences.getInstance().get("name") + " hit the road again and suddenly a Troll appeared");
 
-        CombatFacade combatFacade = new CombatFacade(
-                new PhysicsEngine(),
-                new AudioEngine(),
-                new ParticleSystem(),
+        ICharacter troll = new Troll();
+        troll.setFile("Troll");
+        troll.equip(EquipmentSlot.TWO_HAND, "Club");
+
+        ourKnight.setFile("Knight");
+
+        System.out.println();
+
+        CombatSceneFacade combatSceneFacade = new CombatSceneFacade(
                 new Scene(),
                 new Camera(),
+                ourKnight,
+                troll,
+                new PhysicsEngine(),
+                new AudioEngine(),
                 new ServiceAdapter(new DatabaseService()));
 
-        combatFacade.start();
+        combatSceneFacade.start();
 
-
-        ICharacter troll = new Troll();
-        troll.equip(EquipmentSlot.TWO_HAND, "Club");
         troll.setTarget(ourKnight);
+        combatSceneFacade.getEnemy().playAnimation("Attack");
         troll.hit();
 
         ourKnight.setTarget(troll);
+        combatSceneFacade.getPlayer().playAnimation("Attack");
         panel.onButtonClick(0);
 
+        combatSceneFacade.getEnemy().playAnimation("Attack");
         troll.hit();
+
+        combatSceneFacade.getPlayer().playAnimation("Attack");
         panel.onButtonClick(0);
 
+        combatSceneFacade.getEnemy().playAnimation("Attack");
         troll.hit();
+
+        combatSceneFacade.getPlayer().playAnimation("Attack");
         panel.onButtonClick(0);
 
 
-        combatFacade.end();
+        combatSceneFacade.end();
     }
 }
