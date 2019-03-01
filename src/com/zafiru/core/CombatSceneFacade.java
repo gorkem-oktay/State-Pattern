@@ -7,12 +7,12 @@ import com.zafiru.services.IService;
 
 public class CombatSceneFacade {
 
-    private PhysicsEngine physicsEngine;
-    private AudioEngine audioEngine;
     private Scene scene;
     private Camera camera;
-    private IService service;
     private Sprite player, enemy;
+    private PhysicsEngine physicsEngine;
+    private AudioEngine audioEngine;
+    private IService service;
 
     public CombatSceneFacade(Scene scene, Camera camera, Sprite player, Sprite enemy, PhysicsEngine physicsEngine, AudioEngine audioEngine, IService service){
         this.scene = scene;
