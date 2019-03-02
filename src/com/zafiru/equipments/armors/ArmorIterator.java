@@ -51,6 +51,4 @@ public class ArmorIterator implements Iterator {
         position++;
         return item;
     }
-
-
 }
