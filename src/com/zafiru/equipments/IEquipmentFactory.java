@@ -1,7 +1,14 @@
 package com.zafiru.equipments;
 
 import com.zafiru.equipments.armors.ArmorFactory;
+import com.zafiru.equipments.armors.ArmorIterator;
+import com.zafiru.equipments.armors.IArmor;
+import com.zafiru.equipments.weapons.IWeapon;
 import com.zafiru.equipments.weapons.WeaponFactory;
+import com.zafiru.equipments.weapons.WeaponIterator;
+
+import java.util.Iterator;
+import java.util.Map;
 
 public abstract class IEquipmentFactory {
 
@@ -21,6 +28,16 @@ public abstract class IEquipmentFactory {
                 return new ArmorFactory();
             default:
                 return null;
+        }
+    }
+
+    public static Iterator getIterator(Class type, Map<EquipmentSlot, IEquipment> equipments) {
+        if (type == IWeapon.class) {
+            return new WeaponIterator(equipments);
+        } else if (type == IArmor.class) {
+            return new ArmorIterator(equipments);
+        } else {
+            return null;
         }
     }
 }

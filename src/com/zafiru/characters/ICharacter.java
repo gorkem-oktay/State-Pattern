@@ -4,14 +4,14 @@ import com.zafiru.components.Sprite;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.IEquipment;
 import com.zafiru.equipments.IEquipmentFactory;
-import com.zafiru.equipments.armors.ArmorIterator;
+import com.zafiru.equipments.armors.IArmor;
 import com.zafiru.equipments.weapons.IWeapon;
-import com.zafiru.equipments.weapons.behaviours.IWeaponBehaviour;
 import com.zafiru.observables.Health;
 import com.zafiru.observables.Mana;
 import com.zafiru.spells.ISpell;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public abstract class ICharacter extends Sprite {
@@ -96,10 +96,9 @@ public abstract class ICharacter extends Sprite {
     }
 
     public IWeapon getWeapon() {
-        if (equipments.containsKey(EquipmentSlot.TWO_HAND)) {
-            return (IWeapon) equipments.get(EquipmentSlot.TWO_HAND);
-        } else if (equipments.containsKey(EquipmentSlot.RIGHT_HAND)) {
-            return (IWeapon) equipments.get(EquipmentSlot.RIGHT_HAND);
+        Iterator iterator = IEquipmentFactory.getIterator(IWeapon.class, equipments);
+        if(iterator.hasNext()){
+            return (IWeapon) iterator.next();
         } else {
             return null;
         }
@@ -119,10 +118,10 @@ public abstract class ICharacter extends Sprite {
     }
 
     private void takeHit(int damage){
-        ArmorIterator iterator = new ArmorIterator(equipments);
+        Iterator iterator = IEquipmentFactory.getIterator(IArmor.class, equipments);
         int totalArmor = 0;
         while(iterator.hasNext()){
-            totalArmor += iterator.next().getProtection();
+            totalArmor += ((IArmor)iterator.next()).getProtection();
         }
         int calculatedDamage = totalArmor > damage ? 0 : damage - totalArmor;
         getHealth().decrease(calculatedDamage);

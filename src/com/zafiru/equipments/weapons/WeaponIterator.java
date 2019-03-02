@@ -1,4 +1,4 @@
-package com.zafiru.equipments.armors;
+package com.zafiru.equipments.weapons;
 
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.IEquipment;
@@ -8,24 +8,22 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ArmorIterator implements Iterator {
+public class WeaponIterator implements Iterator {
 
     private Map<EquipmentSlot, IEquipment> equipments;
     private EquipmentSlot[] keys;
-    private ArrayList<EquipmentSlot> armorSlots;
+    private ArrayList<EquipmentSlot> weaponSlots;
     private int position = 0;
 
-    public ArmorIterator(Map equipments){
+    public WeaponIterator(Map equipments){
         this.equipments = equipments;
         this.keys = (EquipmentSlot[]) equipments.keySet().toArray(new EquipmentSlot[0]);
-        this.armorSlots = new ArrayList<>();
-        this.armorSlots.addAll(
+        this.weaponSlots = new ArrayList<>();
+        this.weaponSlots.addAll(
                 Arrays.asList(
-                        EquipmentSlot.CHEST,
-                        EquipmentSlot.HEAD,
-                        EquipmentSlot.FOOT,
-                        EquipmentSlot.LEGS,
-                        EquipmentSlot.HAND
+                        EquipmentSlot.TWO_HAND,
+                        EquipmentSlot.RIGHT_HAND,
+                        EquipmentSlot.LEFT_HAND
                 )
         );
     }
@@ -37,7 +35,7 @@ public class ArmorIterator implements Iterator {
         } else if(keys[position] == null) {
             position++;
             return hasNext();
-        } else if (armorSlots.contains(keys[position])) {
+        } else if (weaponSlots.contains(keys[position])) {
             return true;
         } else {
             position++;
@@ -47,7 +45,7 @@ public class ArmorIterator implements Iterator {
 
     @Override
     public Object next() {
-        IArmor item = (IArmor) equipments.get(keys[position]);
+        IWeapon item = (IWeapon) equipments.get(keys[position]);
         position++;
         return item;
     }
