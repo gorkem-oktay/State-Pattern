@@ -4,6 +4,7 @@ import com.zafiru.components.Sprite;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.IEquipment;
 import com.zafiru.equipments.IEquipmentFactory;
+import com.zafiru.equipments.armors.ArmorIterator;
 import com.zafiru.equipments.weapons.IWeapon;
 import com.zafiru.equipments.weapons.behaviours.IWeaponBehaviour;
 import com.zafiru.observables.Health;
@@ -11,6 +12,7 @@ import com.zafiru.observables.Mana;
 import com.zafiru.spells.ISpell;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class ICharacter extends Sprite {
 
@@ -20,7 +22,7 @@ public abstract class ICharacter extends Sprite {
     private Mana mMana;
     private ICharacter mTarget;
 
-    private HashMap<EquipmentSlot, IEquipment> equipments = new HashMap<>();
+    public Map<EquipmentSlot, IEquipment> equipments = new HashMap<>();
 
     public String getType() {
         return mType;
@@ -112,8 +114,19 @@ public abstract class ICharacter extends Sprite {
 
         if (getTarget() != null && weapon != null) {
             int damage = weapon.calculateDamage();
-            getTarget().getHealth().decrease(damage);
+            getTarget().takeHit(damage);
         }
+    }
+
+    private void takeHit(int damage){
+        ArmorIterator iterator = new ArmorIterator(equipments);
+        int totalArmor = 0;
+        while(iterator.hasNext()){
+            totalArmor += iterator.next().getProtection();
+        }
+        int calculatedDamage = totalArmor > damage ? 0 : damage - totalArmor;
+        getHealth().decrease(calculatedDamage);
+
     }
 
     public void move() {
