@@ -4,8 +4,7 @@ import com.zafiru.characters.*;
 import com.zafiru.commands.AttackCommand;
 import com.zafiru.commands.CastSpellCommand;
 import com.zafiru.commands.MoveCommand;
-import com.zafiru.components.Camera;
-import com.zafiru.components.Scene;
+import com.zafiru.components.*;
 import com.zafiru.consumables.GreaterHealthPotion;
 import com.zafiru.consumables.HealthPotion;
 import com.zafiru.consumables.IConsumable;
@@ -185,5 +184,19 @@ public class Main {
         ourKnight.consume(healthPotion);
         ourKnight.consume(manaPotion);
         ourKnight.consume(greaterHealthPotion);
+
+        System.out.println();
+
+        ViewComponent mainNode = new Node();
+        mainNode.add(new Sprite("Main Sprite"));
+        mainNode.add(new Label("Main Label"));
+
+        ViewComponent childNode = new Node();
+        childNode.add(new Sprite("Child Sprite"));
+        childNode.add(new Label("Child Label"));
+
+        mainNode.add(childNode);
+
+        mainNode.draw();
     }
 }
