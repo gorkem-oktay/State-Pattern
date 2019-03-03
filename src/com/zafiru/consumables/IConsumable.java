@@ -29,7 +29,7 @@ public abstract class IConsumable {
 
     public void decreaseAmount(){
         amount--;
-        System.out.println(amount + " " + name + " left");
+        System.out.println(getAmount() + " " + getName() + " left");
     }
 
     public abstract void updateStats(ICharacter character);
@@ -38,7 +38,7 @@ public abstract class IConsumable {
 
     public final void consume(ICharacter character){
         if(hasEnough()){
-            System.out.println("Consumed " + name);
+            System.out.println("Consumed " + getName());
             decreaseAmount();
             updateStats(character);
             addBuff();
