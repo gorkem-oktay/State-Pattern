@@ -14,7 +14,11 @@ public class HealthBar implements IObserver {
     @Override
     public void updated(IObservable observable, Object value) {
         if (observable instanceof Health) {
-            System.out.println(name + " received " + value + " damage and " + ((Health) observable).getValue() + " health left");
+            if((int)value > 0){
+                System.out.println("Gained " + value + " health, now have " + ((Health) observable).getValue());
+            } else {
+                System.out.println(name + " received " + ((int)value * -1) + " damage and " + ((Health) observable).getValue() + " health left");
+            }
         }
     }
 }

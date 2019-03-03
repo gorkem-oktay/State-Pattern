@@ -6,6 +6,10 @@ import com.zafiru.commands.CastSpellCommand;
 import com.zafiru.commands.MoveCommand;
 import com.zafiru.components.Camera;
 import com.zafiru.components.Scene;
+import com.zafiru.consumables.GreaterHealthPotion;
+import com.zafiru.consumables.HealthPotion;
+import com.zafiru.consumables.IConsumable;
+import com.zafiru.consumables.ManaPotion;
 import com.zafiru.core.AudioEngine;
 import com.zafiru.core.CombatSceneFacade;
 import com.zafiru.core.PhysicsEngine;
@@ -169,5 +173,17 @@ public class Main {
 
 
         combatSceneFacade.end();
+
+        IConsumable healthPotion = new HealthPotion();
+        IConsumable manaPotion = new ManaPotion();
+        IConsumable greaterHealthPotion = new GreaterHealthPotion();
+
+        healthPotion.setAmount(2);
+        manaPotion.setAmount(2);
+        greaterHealthPotion.setAmount(2);
+
+        ourKnight.consume(healthPotion);
+        ourKnight.consume(manaPotion);
+        ourKnight.consume(greaterHealthPotion);
     }
 }

@@ -8,7 +8,11 @@ public class ManaBar implements IObserver {
     @Override
     public void updated(IObservable observable, Object value) {
         if (observable instanceof Mana) {
-            System.out.println(((Mana) observable).getValue() + " mana left");
+            if((int)value > 0){
+                System.out.println("Gained " + value + " mana, now have " + ((Mana) observable).getValue());
+            } else {
+                System.out.println(((Mana) observable).getValue() + " mana left");
+            }
         }
     }
 }

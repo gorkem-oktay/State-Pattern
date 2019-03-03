@@ -10,6 +10,11 @@ public class Mana extends IObservable {
 
     public void decrease(int value) {
         this.value -= value;
+        notifyAll(-value);
+    }
+
+    public void increase(int value){
+        this.value += value;
         notifyAll(value);
     }
 

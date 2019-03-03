@@ -1,6 +1,7 @@
 package com.zafiru.characters;
 
 import com.zafiru.components.Sprite;
+import com.zafiru.consumables.IConsumable;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.IEquipment;
 import com.zafiru.equipments.IEquipmentFactory;
@@ -141,5 +142,9 @@ public abstract class ICharacter extends Sprite {
                 System.out.println("Not enough mana");
             }
         }
+    }
+
+    public void consume(IConsumable consumable){
+        consumable.consume(this);
     }
 }
