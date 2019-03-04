@@ -27,7 +27,7 @@ public class Node extends ViewComponent {
 
     @Override
     public void draw() {
-        System.out.println("Drawing node's components");
+        System.out.println("Drawing node");
         components.forEach((viewComponent)->viewComponent.draw());
     }
 }

@@ -189,7 +189,8 @@ public class Main {
 
         ViewComponent mainNode = new Node();
         mainNode.add(new Sprite("Main Sprite"));
-        mainNode.add(new Label("Main Label"));
+        mainNode.add(new Label("Main Label 1"));
+        mainNode.add(new Label("Main Label 2"));
 
         ViewComponent childNode = new Node();
         childNode.add(new Sprite("Child Sprite"));
