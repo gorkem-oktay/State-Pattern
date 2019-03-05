@@ -207,19 +207,23 @@ public class Main {
 
 
         System.out.println();
-        panel.setCommand(3, new ChangeStanceCommand(ourKnight, new NormalStance()));
-        panel.setCommand(4, new ChangeStanceCommand(ourKnight, new AttackStance()));
-        panel.setCommand(5, new ChangeStanceCommand(ourKnight, new DefenceStance()));
 
-        ourKnight.setTarget(dummy);
-        ourKnight.getWeapon().setBehaviour(new NormalHitBehaviour());
+        ICharacter goblin = new Goblin();
+        goblin.equip(EquipmentSlot.TWO_HAND, "Club");
+        goblin.setTarget(ourKnight);
 
+        ourKnight.setTarget(goblin);
+
+        goblin.hit();
         ourKnight.hit();
-        panel.onButtonClick(3);
+        ourKnight.setStance(new NormalStance());
+        goblin.hit();
         ourKnight.hit();
-        panel.onButtonClick(4);
+        ourKnight.setStance(new AttackStance());
+        goblin.hit();
         ourKnight.hit();
-        panel.onButtonClick(5);
+        ourKnight.setStance(new DefenceStance());
+        goblin.hit();
         ourKnight.hit();
     }
 }
