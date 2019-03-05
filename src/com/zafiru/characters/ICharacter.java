@@ -1,5 +1,9 @@
 package com.zafiru.characters;
 
+import com.zafiru.characters.Stances.AttackStance;
+import com.zafiru.characters.Stances.DefenceStance;
+import com.zafiru.characters.Stances.IStance;
+import com.zafiru.characters.Stances.NormalStance;
 import com.zafiru.components.Sprite;
 import com.zafiru.consumables.IConsumable;
 import com.zafiru.equipments.EquipmentSlot;
@@ -22,6 +26,11 @@ public abstract class ICharacter extends Sprite {
     private Health mHealth;
     private Mana mMana;
     private ICharacter mTarget;
+    private IStance mStance = new NormalStance();
+
+    private IStance normalStance = new NormalStance();
+    private IStance attackStance = new AttackStance();
+    private IStance defenceStance = new DefenceStance();
 
     public Map<EquipmentSlot, IEquipment> equipments = new HashMap<>();
 
@@ -113,14 +122,14 @@ public abstract class ICharacter extends Sprite {
         IWeapon weapon = getWeapon();
 
         if (getTarget() != null && weapon != null) {
-            int damage = weapon.calculateDamage();
+            int damage = weapon.calculateDamage() + mStance.getDamageAddition();
             getTarget().takeHit(damage);
         }
     }
 
     private void takeHit(int damage){
         Iterator iterator = IEquipmentFactory.getIterator(IArmor.class, equipments);
-        int totalArmor = 0;
+        int totalArmor = mStance.getProtectionAddition();
         while(iterator.hasNext()){
             totalArmor += ((IArmor)iterator.next()).getProtection();
         }
@@ -146,5 +155,14 @@ public abstract class ICharacter extends Sprite {
 
     public void consume(IConsumable consumable){
         consumable.consume(this);
+    }
+
+    public IStance getStance() {
+        return mStance;
+    }
+
+    public void changeStance(IStance stance) {
+        System.out.println("Changed stance to " + stance.getClass().getSimpleName());
+        this.mStance = stance;
     }
 }
