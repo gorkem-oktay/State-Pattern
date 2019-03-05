@@ -1,8 +1,12 @@
 package com.zafiru;
 
 import com.zafiru.characters.*;
+import com.zafiru.characters.stances.AttackStance;
+import com.zafiru.characters.stances.DefenceStance;
+import com.zafiru.characters.stances.NormalStance;
 import com.zafiru.commands.AttackCommand;
 import com.zafiru.commands.CastSpellCommand;
+import com.zafiru.commands.ChangeStanceCommand;
 import com.zafiru.commands.MoveCommand;
 import com.zafiru.components.*;
 import com.zafiru.consumables.GreaterHealthPotion;
@@ -15,6 +19,7 @@ import com.zafiru.core.PhysicsEngine;
 import com.zafiru.equipments.EquipmentSlot;
 import com.zafiru.equipments.runes.DamageRune;
 import com.zafiru.equipments.weapons.behaviours.DoubleStrikeBehaviour;
+import com.zafiru.equipments.weapons.behaviours.NormalHitBehaviour;
 import com.zafiru.services.DatabaseService;
 import com.zafiru.services.GameService;
 import com.zafiru.services.IService;
@@ -199,5 +204,22 @@ public class Main {
         mainNode.add(childNode);
 
         mainNode.draw();
+
+
+        System.out.println();
+        panel.setCommand(3, new ChangeStanceCommand(ourKnight, new NormalStance()));
+        panel.setCommand(4, new ChangeStanceCommand(ourKnight, new AttackStance()));
+        panel.setCommand(5, new ChangeStanceCommand(ourKnight, new DefenceStance()));
+
+        ourKnight.setTarget(dummy);
+        ourKnight.getWeapon().setBehaviour(new NormalHitBehaviour());
+
+        ourKnight.hit();
+        panel.onButtonClick(3);
+        ourKnight.hit();
+        panel.onButtonClick(4);
+        ourKnight.hit();
+        panel.onButtonClick(5);
+        ourKnight.hit();
     }
 }
