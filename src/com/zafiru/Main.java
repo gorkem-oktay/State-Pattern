@@ -1,12 +1,8 @@
 package com.zafiru;
 
 import com.zafiru.characters.*;
-import com.zafiru.characters.Stances.AttackStance;
-import com.zafiru.characters.Stances.DefenceStance;
-import com.zafiru.characters.Stances.NormalStance;
 import com.zafiru.commands.AttackCommand;
 import com.zafiru.commands.CastSpellCommand;
-import com.zafiru.commands.ChangeStanceCommand;
 import com.zafiru.commands.MoveCommand;
 import com.zafiru.components.*;
 import com.zafiru.consumables.GreaterHealthPotion;
@@ -203,21 +199,5 @@ public class Main {
         mainNode.add(childNode);
 
         mainNode.draw();
-
-
-        System.out.println();
-        panel.setCommand(3, new ChangeStanceCommand(ourKnight, new NormalStance()));
-        panel.setCommand(4, new ChangeStanceCommand(ourKnight, new AttackStance()));
-        panel.setCommand(5, new ChangeStanceCommand(ourKnight, new DefenceStance()));
-
-        ourKnight.setTarget(dummy);
-        panel.onButtonClick(3);
-        ourKnight.hit();
-
-        panel.onButtonClick(4);
-        ourKnight.hit();
-
-        panel.onButtonClick(5);
-        ourKnight.hit();
     }
 }
