@@ -1,6 +1,6 @@
 package com.zafiru.characters.stances;
 
-public class DefenceStance extends IStance {
+public class DefenceStance implements IStance {
 
     @Override
     public int getDamageAddition() {

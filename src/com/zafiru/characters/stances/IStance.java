@@ -1,8 +1,8 @@
 package com.zafiru.characters.stances;
 
-public abstract class IStance {
+public interface IStance {
 
-    public abstract int getDamageAddition();
+    int getDamageAddition();
 
-    public abstract int getProtectionAddition();
+    int getProtectionAddition();
 }
